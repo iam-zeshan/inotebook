@@ -15,45 +15,9 @@ app.get('/', (req, res) => {
   res.send('Hello amazing World!');
 });
 
-// If someone write nice after home '/' usrl then I want him to show this ':)'
-app.get('/', (req, res) => {
-  res.send('Hello :)');
-});
-
-// If someone write hate after home '/' url then I want him to show this ':('
-app.get('/', (req, res) => {
-  res.send('Hello :)');
-});
-// If someone write nice after home '/' usrl then I want him to show this ':)'
-app.get('/', (req, res) => {
-  res.send('Hello :)');
-});
-
-// If someone write hate after home '/' url then I want him to show this ':('
-app.get('/', (req, res) => {
-  res.send('Hello :)');
-});
-// If someone write nice after home '/' usrl then I want him to show this ':)'
-app.get('/', (req, res) => {
-  res.send('Hello :)');
-});
-
-// If someone write hate after home '/' url then I want him to show this ':('
-app.get('/', (req, res) => {
-  res.send('Hello :)');
-});
-
-
-// If someone write hate after home '/' url then I want him to show this ':('
-app.get('/', (req, res) => {
-  res.send('Hello :)');
-});
-
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
-// just done something for git but please
 
 
 

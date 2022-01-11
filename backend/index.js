@@ -20,6 +20,11 @@ app.get('/', (req, res) => {
   res.send('Hello :)');
 });
 
+// If someone write hate after home '/' url then I want him to show this ':('
+app.get('/', (req, res) => {
+  res.send('Hello :)');
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

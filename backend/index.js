@@ -24,6 +24,25 @@ app.get('/', (req, res) => {
 app.get('/', (req, res) => {
   res.send('Hello :)');
 });
+// If someone write nice after home '/' usrl then I want him to show this ':)'
+app.get('/', (req, res) => {
+  res.send('Hello :)');
+});
+
+// If someone write hate after home '/' url then I want him to show this ':('
+app.get('/', (req, res) => {
+  res.send('Hello :)');
+});
+// If someone write nice after home '/' usrl then I want him to show this ':)'
+app.get('/', (req, res) => {
+  res.send('Hello :)');
+});
+
+// If someone write hate after home '/' url then I want him to show this ':('
+app.get('/', (req, res) => {
+  res.send('Hello :)');
+});
+
 
 // If someone write hate after home '/' url then I want him to show this ':('
 app.get('/', (req, res) => {

@@ -4,10 +4,11 @@ const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs/dist/bcrypt');
 var jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser');
 
 const JWT_SECRET = 'fuckyouhacker$';
 
-// Create a User using POST "/api/auth/createuser". Doesn't require Auth and login
+// ROUTE 1: Create a User using POST "/api/auth/createuser". Doesn't require Auth and login
 // is below ko ye End point keh raha hein
 router.post('/createuser', [
     body('name').isLength({ min: 3 }),
@@ -47,10 +48,10 @@ router.post('/createuser', [
     }
 })
 
-// Authentication using POST "/api/auth/login". Doesn't require Auth and login
+// ROUTE 2: Authentication using POST "/api/auth/login". Doesn't require Auth and login
 router.post('/login', [
     body('email', 'enter a valid email').isEmail(),
-    body('password', 'password cannot be blank').exists(),
+    body('password', 'password cannot be blank').exists(), // exists()-function is used for cannot be empty purpose
 ], async (req, res) => {
     // If there are errors, return Bad request and the errors
     const errors = validationResult(req);
@@ -59,7 +60,7 @@ router.post('/login', [
     }
     const { email, password } = req.body;
     try {
-        let user = await User.findOne({email: req.body.email});
+        let user = await User.findOne({ email: req.body.email });
         if (!user) {
             return res.status(400).json({ error: "Please try to log in with correct credentials" });
         }
@@ -80,5 +81,17 @@ router.post('/login', [
     }
 })
 
+
+// ROUTE 3: Get Logeding User Details using POST "/api/auth/getuser".  Login required
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select("-password");
+        res.send(user)
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Sorry, internal server Errors occured!");
+    }
+})
 
 module.exports = router

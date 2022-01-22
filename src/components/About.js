@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import NoteContext from '../context/notes/NoteContext';
 
 const About = () => {
   const a = useContext(NoteContext);
-  a.name = "Haider";
+  useEffect(() => {
+    a.update();
+  }, []);
+  
   return (
-    <div class='container my-5'>
-      this is my name {a.name} and I'm in class ({a.class})
+    <div className='container my-5'>
+      this is my name {a.state.name} and I'm in class ({a.state.class})
     </div>
   )
-}  
+}
 export default About;

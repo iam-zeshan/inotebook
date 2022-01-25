@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
     let location = useLocation();
+    // this is just for pull request 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container-fluid">

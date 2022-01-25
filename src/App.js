@@ -11,19 +11,19 @@ import NoteState from './context/notes/NoteState';
 
 function App() {
   return (
-    <>
-      <NoteState>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/about" element={<About />} />
-            {/* <Route exact path="/" element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="general" />} /> */}
 
-          </Routes>
-        </Router>
-      </NoteState>
-    </>
+    <NoteState>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<About />} />
+          {/* <Route exact path="/" element={<News setProgress={setProgress} apiKey={apiKey} pageSize={pageSize} country="in" category="general" />} /> */}
+
+        </Routes>
+      </Router>
+    </NoteState>
+
   );
 }
 

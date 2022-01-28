@@ -14,17 +14,18 @@ router.post('/createuser', [
     body('name').isLength({ min: 3 }),
     body('email').isEmail(),
     body('password').isLength({ min: 3 }),
-], async (req, res) => {
+    ], async (req, res) => {
+    let success = false;
     // If there are errors, return Bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
     try {
         // Check whether the user with this Email exists already
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: "Sorry a user with this email alread exists!" })
+            return res.status(400).json({ success, error: "Sorry a user with this email alread exists!" })
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -40,8 +41,8 @@ router.post('/createuser', [
             }
         }
         const authToken = jwt.sign(data, JWT_SECRET);
-
-        res.send({ authToken });
+        success = true;
+        res.send({ success, authToken });
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Sorry, internal server Errors occured");
@@ -61,7 +62,7 @@ router.post('/login', [
     }
     const { email, password } = req.body;
     try {
-        let user = await User.findOne({ email: req.body.email });
+        let user = await User.findOne({email});
         if (!user) {
             return res.status(400).json({ success, error: "Please try to log in with correct credentials" });
         }

@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const port = 5000;
 
+var cors = require('cors');
+app.use(cors());
 // Below line will help us to send req.body data. Hint (thunderStorm body).
 app.use(express.json())
 // Available Routes

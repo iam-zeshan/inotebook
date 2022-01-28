@@ -1,7 +1,8 @@
 import React, {useContext, useState} from 'react';
 import noteContext from '../context/notes/NoteContext';
 
-const AddNote = () => {
+const AddNote = (props) => {
+    const {showAlert} =  props;
     const context = useContext(noteContext);
     const {addNote} = context;
     const [note, setNote] = useState({title: "", description: "", tag: ""});
@@ -9,6 +10,7 @@ const AddNote = () => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
         setNote({title: "", description: "", tag: ""});
+        showAlert("Note Added into Data base Successfully!", "success");
     }
     // Concate returns an Array whereas push updates an Array
 

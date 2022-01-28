@@ -4,7 +4,8 @@ import AddNote from './AddNote';
 import Alert from './Alert';
 import NoteItem from './NoteItem';
 
-const Notes = () => {
+const Notes = (props) => {
+    const {showAlert} = props;
     const context = useContext(noteContext);
     const { notes, getNotes, editNote } = context;
     useEffect(() => {
@@ -23,6 +24,8 @@ const Notes = () => {
     const handleClick = (e)=> {
         editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
+        showAlert("Notes Updated successfully in the Data base!", "success")
+
         // updateNote(note.title, note.description, note.tag);
     }
     // Concate returns an Array whereas push updates an Array
@@ -32,7 +35,7 @@ const Notes = () => {
     }
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={showAlert} />
             <button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
             </button>
@@ -68,17 +71,16 @@ const Notes = () => {
             </div>
 
             <h2>Your Notes</h2>
-            <Alert message="This is one of the Amazing app " />
+            <Alert  />
             <div className="row my-3">
                 <div className="container">
                     {notes.length === 0 && 'Database is Empty'}
                 </div>
                 {notes.map((note) => {
-                    return <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                    return <NoteItem key={note._id} updateNote={updateNote} note={note} showAlert = {showAlert} />
                 })}
             </div>
         </>
-
     )
 }
 

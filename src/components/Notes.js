@@ -1,16 +1,23 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
 import noteContext from '../context/notes/NoteContext';
 import AddNote from './AddNote';
 import Alert from './Alert';
 import NoteItem from './NoteItem';
 
 const Notes = (props) => {
+    let navigate = useNavigate();
     const {showAlert} = props;
     const context = useContext(noteContext);
     const { notes, getNotes, editNote } = context;
     useEffect(() => {
-        getNotes();
-        // eslint-disable-next-line
+        if(localStorage.getItem('token')){
+            getNotes();
+            // eslint-disable-next-line
+        }
+        else{
+            navigate("/login");
+        }
     }, []);
     const [note, setNote] = useState({etitle: "", edescription: "", etag: ""});
     const ref = useRef(null);
@@ -35,6 +42,7 @@ const Notes = (props) => {
     }
     return (
         <>
+        <h2>Good Evening, Mr.{localStorage.getItem('name')}</h2>
             <AddNote showAlert={showAlert} />
             <button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal

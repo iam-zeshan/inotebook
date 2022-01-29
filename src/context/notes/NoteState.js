@@ -26,7 +26,7 @@ const NoteState = (props) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZmExZjMxYjIxMTVmMGIxODM0ZjViIn0sImlhdCI6MTY0MjI3MTczN30.2tBvBOmRPQ8XuGdAQ6ooxZBGCJG3nxYZxfAUqtZRXj0'
+        'auth-token': localStorage.getItem('token')
       }
     });
     const json = await response.json()
@@ -40,7 +40,7 @@ const NoteState = (props) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZmExZjMxYjIxMTVmMGIxODM0ZjViIn0sImlhdCI6MTY0MjI3MTczN30.2tBvBOmRPQ8XuGdAQ6ooxZBGCJG3nxYZxfAUqtZRXj0'
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag })
     });
@@ -55,10 +55,11 @@ const NoteState = (props) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZmExZjMxYjIxMTVmMGIxODM0ZjViIn0sImlhdCI6MTY0MjI3MTczN30.2tBvBOmRPQ8XuGdAQ6ooxZBGCJG3nxYZxfAUqtZRXj0'
+        'auth-token': localStorage.getItem('token')
       },
     });
     const json = response.json();
+    console.log(json);
     // TODO: Add API Call
     const newNotes = notes.filter((e) => { return e._id !== id });
     setNotes(newNotes);
@@ -70,11 +71,12 @@ const NoteState = (props) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZmExZjMxYjIxMTVmMGIxODM0ZjViIn0sImlhdCI6MTY0MjI3MTczN30.2tBvBOmRPQ8XuGdAQ6ooxZBGCJG3nxYZxfAUqtZRXj0'
+        'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({title, description, tag})
     });
-    // const json = response.json();
+    const json = response.json();
+    console.log(json);
     
     // Logic to edit in client
     let newNotes = JSON.parse(JSON.stringify(notes));

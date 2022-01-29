@@ -1,8 +1,13 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+    let navigate = useNavigate();
+    const handleLogout = ()=> {
+        localStorage.removeItem('token');
+        navigate('login');
+    }
     let location = useLocation();
     // this is just for pull request 
     return (
@@ -21,10 +26,10 @@ const Navbar = () => {
                             <Link className={`nav-link ${location.pathname === '/about'? "active": ""}`} to="/about">About</Link>
                         </li>
                     </ul>
-                    <form className='d-flex'>
+                    {!localStorage.getItem('token')? <form className='d-flex'>
                         <Link className='btn btn-primary' to = "/login" role="button">Login</Link>
                         <Link className='btn btn-primary mx-2' to = "/signup" role="button">Signup</Link>
-                    </form>
+                    </form>: <button className='btn btn-primary' onClick={handleLogout} >Logout</button>}
                 </div>
             </div>
         </nav>

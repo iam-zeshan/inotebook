@@ -14,10 +14,12 @@ const Login = (props) => {
             body: JSON.stringify({email: credentials.email, password: credentials.password})
           });
         const json = await response.json();
-        console.log(json);
         if(json.success){
             // save authToken in a localStorage and then Redirect it to Home page
-            localStorage.setItem('token', json.authToken);
+            const token = json.authToken;
+            localStorage.setItem('token', token);
+            let consolname = localStorage.setItem('name', json.name);
+            console.log(consolname);
             navigate("/");
             props.showAlert("Logged in Successfully", "success");
         }else{

@@ -22,7 +22,7 @@ function App() {
     })
     setTimeout(() => {
       setAlert(null);
-    }, 3500);
+    }, 2000);
   }
   return (
     <NoteState>

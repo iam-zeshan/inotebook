@@ -9,11 +9,12 @@ const Notes = (props) => {
     let navigate = useNavigate();
     const {showAlert} = props;
     const context = useContext(noteContext);
-    const { notes, getNotes, editNote } = context;
+    const { notes, getNotes, editNote, getUserData } = context;
     useEffect(() => {
         if(localStorage.getItem('token')){
             getNotes();
             // eslint-disable-next-line
+            getUserData();
         }
         else{
             navigate("/login");
@@ -42,7 +43,7 @@ const Notes = (props) => {
     }
     return (
         <>
-        <h2>Good Evening, Mr.{localStorage.getItem('name')}</h2>
+        <h2>Good Evening, Mr/Ms. {localStorage.getItem('name')}</h2>
             <AddNote showAlert={showAlert} />
             <button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal

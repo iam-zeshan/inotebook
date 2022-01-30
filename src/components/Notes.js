@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import noteContext from '../context/notes/NoteContext';
 import AddNote from './AddNote';
 import Alert from './Alert';
@@ -7,29 +7,29 @@ import NoteItem from './NoteItem';
 
 const Notes = (props) => {
     let navigate = useNavigate();
-    const {showAlert} = props;
+    const { showAlert } = props;
     const context = useContext(noteContext);
     const { notes, getNotes, editNote, getUserData } = context;
     useEffect(() => {
-        if(localStorage.getItem('token')){
+        if (localStorage.getItem('token')) {
             getNotes();
             // eslint-disable-next-line
             getUserData();
         }
-        else{
+        else {
             navigate("/login");
         }
     }, []);
-    const [note, setNote] = useState({etitle: "", edescription: "", etag: ""});
+    const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
     const ref = useRef(null);
     const refClose = useRef(null);
 
     const updateNote = (currentNote) => {
         ref.current.click();
-        setNote({id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag});
+        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
     }
 
-    const handleClick = (e)=> {
+    const handleClick = (e) => {
         editNote(note.id, note.etitle, note.edescription, note.etag);
         refClose.current.click();
         showAlert("Notes Updated successfully in the Data base!", "success")
@@ -38,12 +38,12 @@ const Notes = (props) => {
     }
     // Concate returns an Array whereas push updates an Array
 
-    const onChange = (e)=> {
-        setNote({...note, [e.target.name]: e.target.value})
+    const onChange = (e) => {
+        setNote({ ...note, [e.target.name]: e.target.value })
     }
     return (
         <>
-        <h2>Good Evening, Mr/Ms. {localStorage.getItem('name')}</h2>
+            <h2 style={{ "margin-top": "80px" }}>Good Evening, Mr/Ms. {localStorage.getItem('name')}</h2>
             <AddNote showAlert={showAlert} />
             <button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
@@ -73,20 +73,19 @@ const Notes = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button disabled = {note.etitle.length < 5 || note.edescription.length < 5} type="submit" className="btn btn-primary" onClick={handleClick}>Update Note</button>
+                            <button disabled={note.etitle.length < 5 || note.edescription.length < 5} type="submit" className="btn btn-primary" onClick={handleClick}>Update Note</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <h2>Your Notes</h2>
-            <Alert  />
             <div className="row my-3">
+                <h3>Your Notes</h3>
                 <div className="container">
                     {notes.length === 0 && 'Database is Empty'}
                 </div>
                 {notes.map((note) => {
-                    return <NoteItem key={note._id} updateNote={updateNote} note={note} showAlert = {showAlert} />
+                    return <NoteItem key={note._id} updateNote={updateNote} note={note} showAlert={showAlert} />
                 })}
             </div>
         </>
